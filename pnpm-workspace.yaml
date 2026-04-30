@@ -1,3 +1,15 @@
 packages:
-  - 'apps/*'
+  - apps/*
 
+ignoredBuiltDependencies:
+  - '@parcel/watcher'
+  - '@swc/core'
+  - lmdb
+  - msgpackr-extract
+
+onlyBuiltDependencies:
+  - cypress
+  - esbuild
+  - less
+  - nx
+  - unrs-resolver

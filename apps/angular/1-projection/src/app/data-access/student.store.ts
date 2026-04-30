@@ -1,21 +1,8 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Student } from '../model/student.model';
+import { AbstractEntityStore } from './abstract-entity.store';
 
 @Injectable({
   providedIn: 'root',
 })
-export class StudentStore {
-  public students = signal<Student[]>([]);
-
-  addAll(students: Student[]) {
-    this.students.set(students);
-  }
-
-  addOne(student: Student) {
-    this.students.set([...this.students(), student]);
-  }
-
-  deleteOne(id: number) {
-    this.students.set(this.students().filter((s) => s.id !== id));
-  }
-}
+export class StudentStore extends AbstractEntityStore<Student> {}
