@@ -56,9 +56,15 @@ importers:
       '@ngrx/component-store':
         specifier: 21.0.0
         version: 21.0.0(@angular/core@21.2.2(@angular/compiler@21.2.2)(rxjs@7.8.1)(zone.js@0.16.0))(rxjs@7.8.1)
+      '@ngrx/effects':
+        specifier: ^21.1.0
+        version: 21.1.0(@angular/core@21.2.2(@angular/compiler@21.2.2)(rxjs@7.8.1)(zone.js@0.16.0))(@ngrx/store@21.1.0(@angular/core@21.2.2(@angular/compiler@21.2.2)(rxjs@7.8.1)(zone.js@0.16.0))(rxjs@7.8.1))(rxjs@7.8.1)
       '@ngrx/operators':
         specifier: 21.0.0
         version: 21.0.0(rxjs@7.8.1)
+      '@ngrx/store':
+        specifier: ^21.1.0
+        version: 21.1.0(@angular/core@21.2.2(@angular/compiler@21.2.2)(rxjs@7.8.1)(zone.js@0.16.0))(rxjs@7.8.1)
       '@nx/angular':
         specifier: 22.5.4
         version: 22.5.4(e67ad03a342ea0802320eab6abde917d)
@@ -3083,6 +3089,13 @@ packages:
       '@angular/core': ^21.0.0
       rxjs: ^6.5.3 || ^7.5.0
 
+  '@ngrx/effects@21.1.0':
+    resolution: {integrity: sha512-Hh+PlV+xYP3i65XK2yOxpIQ9pP4T70gLpm6JIjBE02DumW+evr6LdUgeixfq5vaUS1kN3Rqvl24fNUDJKGkkZw==}
+    peerDependencies:
+      '@angular/core': ^21.0.0
+      '@ngrx/store': 21.1.0
+      rxjs: ^6.5.3 || ^7.5.0
+
   '@ngrx/operators@21.0.0':
     resolution: {integrity: sha512-deqh1kkpOGEDjhwEIEMZTjpWUie5FazDPVxV610LNPSF/Kwtqpv0xjCeAZXojkWrncptnJ9l0KhklJcaCODQwg==}
     peerDependencies:
@@ -3090,6 +3103,12 @@ packages:
 
   '@ngrx/schematics@19.0.1':
     resolution: {integrity: sha512-kH91X7zewB8niOeemk8NgbjnnW0crwqTl8gG2zZAySW3Q0yGnoPpVAc4Yxezm1/bKsLGLILvEAzzlQGKBrigVg==}
+
+  '@ngrx/store@21.1.0':
+    resolution: {integrity: sha512-XnpzqmmENOQGtIzFSDX4qq7zVB2WwfMZWoK78yt36lIeDvtgZuUvxyIiGo5mla7e7+KlsSAeNDUvi9zmqIezfw==}
+    peerDependencies:
+      '@angular/core': ^21.0.0
+      rxjs: ^6.5.3 || ^7.5.0
 
   '@ngtools/webpack@21.2.1':
     resolution: {integrity: sha512-HGRGTDmyo3IuxxEAVK9/QK2Nd/nwWIh/zcd2x6nmCxC7tdB0fwIhEZhWnUDyLP2QnDaEPeR4NnZCGTN89SWhGg==}
@@ -14702,12 +14721,25 @@ snapshots:
       rxjs: 7.8.1
       tslib: 2.8.1
 
+  '@ngrx/effects@21.1.0(@angular/core@21.2.2(@angular/compiler@21.2.2)(rxjs@7.8.1)(zone.js@0.16.0))(@ngrx/store@21.1.0(@angular/core@21.2.2(@angular/compiler@21.2.2)(rxjs@7.8.1)(zone.js@0.16.0))(rxjs@7.8.1))(rxjs@7.8.1)':
+    dependencies:
+      '@angular/core': 21.2.2(@angular/compiler@21.2.2)(rxjs@7.8.1)(zone.js@0.16.0)
+      '@ngrx/store': 21.1.0(@angular/core@21.2.2(@angular/compiler@21.2.2)(rxjs@7.8.1)(zone.js@0.16.0))(rxjs@7.8.1)
+      rxjs: 7.8.1
+      tslib: 2.8.1
+
   '@ngrx/operators@21.0.0(rxjs@7.8.1)':
     dependencies:
       rxjs: 7.8.1
       tslib: 2.8.1
 
   '@ngrx/schematics@19.0.1': {}
+
+  '@ngrx/store@21.1.0(@angular/core@21.2.2(@angular/compiler@21.2.2)(rxjs@7.8.1)(zone.js@0.16.0))(rxjs@7.8.1)':
+    dependencies:
+      '@angular/core': 21.2.2(@angular/compiler@21.2.2)(rxjs@7.8.1)(zone.js@0.16.0)
+      rxjs: 7.8.1
+      tslib: 2.8.1
 
   '@ngtools/webpack@21.2.1(@angular/compiler-cli@21.2.2(@angular/compiler@21.2.2)(typescript@5.9.3))(typescript@5.9.3)(webpack@5.105.2(@swc/core@1.15.8(@swc/helpers@0.5.19)))':
     dependencies:

@@ -5,7 +5,10 @@
   "references": [
     {
       "path": "./tsconfig.app.json"
-    }
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    },
   ],
   "compilerOptions": {
     "target": "es2020",
@@ -17,7 +20,10 @@
     "noFallthroughCasesInSwitch": true,
     "module": "preserve",
     "moduleResolution": "bundler",
-    "lib": ["dom", "es2022"]
+    "lib": [
+      "dom",
+      "es2022"
+    ]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
