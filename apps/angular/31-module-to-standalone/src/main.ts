@@ -1,9 +1,9 @@
-import { provideZoneChangeDetection } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { AppModule } from './app/app.module';
+import { provideToken } from '@angular-challenges/module-to-standalone/core/providers';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideRouter } from '@angular/router';
+import { AppComponent } from './app/app.component';
+import { appRoutes } from '/home/white/Desktop/dev/angular/angular-challenges/libs/module-to-standalone/shell/src/lib/main-shell.routes';
 
-platformBrowserDynamic()
-  .bootstrapModule(AppModule, {
-    applicationProviders: [provideZoneChangeDetection()],
-  })
-  .catch((err) => console.error(err));
+bootstrapApplication(AppComponent, {
+  providers: [provideToken('main-shell-token'), provideRouter(appRoutes)],
+}).catch((err) => console.error(err));
