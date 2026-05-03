@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   imports: [],
   selector: 'app-root',
   styles: `
-@reference "tailwindcss";
+    @reference "tailwindcss";
 
     section {
       @apply flex flex-1 flex-col gap-5;
@@ -17,10 +17,30 @@ import { Component } from '@angular/core';
         @apply flex-1;
       }
     }
+    .enter-animation {
+      animation: slide-fade 0.5s;
+    }
+    @keyframes slide-fade {
+      from {
+        transform: translateX(-70px);
+      }
+      to {
+        transform: translateX(0);
+      }
+    }
+    .list-items .list-item {
+      transition-property: opacity, transform;
+      transition-duration: 500ms;
+      transition-delay: calc(200ms * var(--index));
+      @starting-style {
+        opacity: 0;
+        transform: translateX(-10px);
+      }
+    }
   `,
   template: `
     <div class="mx-20 my-40 flex gap-5">
-      <section>
+      <section animate.enter="enter-animation">
         <div>
           <h3>2008</h3>
           <p>
@@ -52,33 +72,33 @@ import { Component } from '@angular/core';
         </div>
       </section>
 
-      <section>
-        <div class="list-item">
+      <section class="list-items">
+        <div class="list-item" style="--index: 1">
           <span>Name:</span>
           <span>Samuel</span>
         </div>
 
-        <div class="list-item">
+        <div class="list-item" style="--index: 2">
           <span>Age:</span>
           <span>28</span>
         </div>
 
-        <div class="list-item">
+        <div class="list-item" style="--index: 3">
           <span>Birthdate:</span>
           <span>02.11.1995</span>
         </div>
 
-        <div class="list-item">
+        <div class="list-item" style="--index: 4">
           <span>City:</span>
           <span>Berlin</span>
         </div>
 
-        <div class="list-item">
+        <div class="list-item" style="--index: 5">
           <span>Language:</span>
           <span>English</span>
         </div>
 
-        <div class="list-item">
+        <div class="list-item" style="--index: 6">
           <span>Like Pizza:</span>
           <span>Hell yeah</span>
         </div>
