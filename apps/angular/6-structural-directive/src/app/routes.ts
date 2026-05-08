@@ -69,7 +69,6 @@ export const APP_ROUTES = [
   },
   {
     path: 'enter',
-    canMatch: [() => canMatchAdmin(false)],
     loadComponent: () =>
       import('./dashboard/everyone.component').then(
         (m) => m.EveryoneDashboardComponent,
