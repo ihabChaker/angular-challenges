@@ -1,14 +1,8 @@
-import { Component, inject, signal } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
+import { inject, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 
-@Component({
-  imports: [MatButtonModule],
-  selector: 'app-sensitive-action',
-  templateUrl: './sensitive-action.component.html',
-})
-export class SensitiveActionComponent {
+export abstract class AbstractActionComponent {
   readonly #dialog = inject(MatDialog);
   public isOpen = signal<boolean>(false);
   constructor() {
@@ -19,10 +13,12 @@ export class SensitiveActionComponent {
       this.isOpen.set(false);
     });
   }
+  closeDialog() {
+    this.#dialog.closeAll();
+  }
   openDialog(): void {
     this.#dialog.open(DialogComponent, {
       width: '250px',
-      hasBackdrop: true,
       closeOnNavigation: false,
     });
   }
