@@ -1,6 +1,6 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, signal, WritableSignal } from '@angular/core';
-
+import { BTN_STATE_TOKEN, injector } from '@angular-challenges/decoupling/core';
+import { Directive } from '@angular/core';
 export type ButtonState = 'enabled' | 'disabled';
 
 @Directive({
@@ -10,9 +10,10 @@ export type ButtonState = 'enabled' | 'disabled';
   },
 })
 export class BtnDisabledDirective {
-  state: WritableSignal<ButtonState> = signal('enabled');
+  btnStateSubject$ = injector.get(BTN_STATE_TOKEN);
 
   toggleState() {
-    this.state.set(this.state() === 'enabled' ? 'disabled' : 'enabled');
+    const value = this.btnStateSubject$.value;
+    this.btnStateSubject$.next(value === 'enabled' ? 'disabled' : 'enabled');
   }
 }
