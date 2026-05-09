@@ -9,6 +9,18 @@ import { CardComponent } from './card.component';
       <div title>Card 1</div>
       <div message>Message 1</div>
     </app-card>
+    <app-card>
+      <div title>Card 1</div>
+      <div message>Message 1</div>
+    </app-card>
+    <app-card [small]="true">
+      <div title>Card 2</div>
+      <div message>Message 2</div>
+    </app-card>
+    <app-card>
+      <div title>Card 1</div>
+      <div message>Message 1</div>
+    </app-card>
     <app-card [small]="true">
       <div title>Card 2</div>
       <div message>Message 2</div>
