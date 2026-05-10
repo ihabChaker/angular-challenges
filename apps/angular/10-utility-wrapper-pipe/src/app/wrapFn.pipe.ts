@@ -5,8 +5,13 @@ import { PersonUtilNames, PersonUtils } from './person.utils';
   name: 'wrapFn',
 })
 export class WrapFnPipe implements PipeTransform {
-  transform(fnName: PersonUtilNames, ...args: any[]): any {
-    const fn = PersonUtils[fnName] as (...args: any[]) => any;
+  transform<FNName extends PersonUtilNames>(
+    fnName: FNName,
+    ...args: Parameters<(typeof PersonUtils)[FNName]>
+  ): ReturnType<(typeof PersonUtils)[FNName]> {
+    const fn = PersonUtils[fnName] as (
+      ...args: Parameters<(typeof PersonUtils)[FNName]>
+    ) => any;
 
     return fn(...args);
   }
