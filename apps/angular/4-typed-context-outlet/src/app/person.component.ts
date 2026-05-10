@@ -1,5 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, contentChild, input, TemplateRef } from '@angular/core';
+import { Person } from './user.model';
 
 @Component({
   imports: [NgTemplateOutlet],
@@ -16,7 +17,7 @@ import { Component, contentChild, input, TemplateRef } from '@angular/core';
   `,
 })
 export class PersonComponent {
-  person = input.required<{ name: string; age: number }>();
+  person = input.required<Person>();
 
   personTemplateRef = contentChild('personRef', { read: TemplateRef });
 }
