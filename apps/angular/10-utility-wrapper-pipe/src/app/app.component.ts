@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { PersonUtils } from './person.utils';
+import { WrapFnPipe } from './wrapFn.pipe';
 
 @Component({
   selector: 'app-root',
+  imports: [WrapFnPipe],
   template: `
     @for (activity of activities; track activity.name) {
       {{ activity.name }} :
@@ -12,8 +14,8 @@ import { PersonUtils } from './person.utils';
         let index = $index;
         let isFirst = $first
       ) {
-        {{ showName(person.name, index) }}
-        {{ isAllowed(person.age, isFirst, activity.minimumAge) }}
+        {{ 'showName' | wrapFn: person.name : index }}
+        {{ 'isAllowed' | wrapFn: person.age : isFirst : activity.minimumAge }}
       }
     }
   `,

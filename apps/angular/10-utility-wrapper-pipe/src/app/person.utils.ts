@@ -15,3 +15,4 @@ export const PersonUtils = {
   showName,
   isAllowed,
 };
+export type PersonUtilNames = keyof typeof PersonUtils;
