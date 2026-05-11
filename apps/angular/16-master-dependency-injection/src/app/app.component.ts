@@ -1,6 +1,13 @@
 import { TableComponent } from '@angular-challenges/shared/ui';
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Directive } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Directive,
+  inject,
+  input,
+  OnInit,
+} from '@angular/core';
 import { CurrencyPipe } from './currency.pipe';
 import { CurrencyService } from './currency.service';
 import { Product, products } from './product.model';
@@ -12,6 +19,7 @@ interface ProductContext {
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'ng-template[product]',
+  providers: [CurrencyService],
 })
 export class ProductDirective {
   static ngTemplateContextGuard(
@@ -21,10 +29,29 @@ export class ProductDirective {
     return true;
   }
 }
+@Directive({
+  selector: 'tr[code]',
+  providers: [CurrencyService],
+})
+export class CurrencyCodeDirective implements OnInit {
+  code = input.required<string>();
+  currencyService = inject(CurrencyService);
+  ngOnInit() {
+    this.currencyService.setState({
+      code: this.code(),
+    });
+  }
+}
 
 @Component({
-  imports: [TableComponent, CurrencyPipe, AsyncPipe, ProductDirective],
-  providers: [CurrencyService],
+  imports: [
+    TableComponent,
+    CurrencyPipe,
+    AsyncPipe,
+    ProductDirective,
+    CurrencyCodeDirective,
+  ],
+  providers: [],
   selector: 'app-root',
   template: `
     <table [items]="products">
@@ -38,7 +65,7 @@ export class ProductDirective {
         </tr>
       </ng-template>
       <ng-template #body product let-product>
-        <tr>
+        <tr [code]="product.currencyCode">
           <td>{{ product.name }}</td>
           <td>{{ product.priceA | currency | async }}</td>
           <td>{{ product.priceB | currency | async }}</td>

@@ -10,10 +10,17 @@
     "noFallthroughCasesInSwitch": true,
     "module": "preserve",
     "moduleResolution": "bundler",
-    "lib": ["dom", "es2022"]
+    "lib": [
+      "dom",
+      "es2022"
+    ]
   },
   "files": [],
-  "include": [],
+  "include": [
+    "src/**/*.d.ts",
+    "src/**/*.ts",
+    "src/**/*.html"
+  ],
   "references": [
     {
       "path": "./tsconfig.app.json"

@@ -22,7 +22,6 @@ export class CurrencyService extends ComponentStore<{ code: string }> {
   readonly symbol$ = this.code$.pipe(
     map((code) => currency.find((c) => c.code === code)?.symbol ?? code),
   );
-
   constructor() {
     super({ code: 'EUR' });
   }

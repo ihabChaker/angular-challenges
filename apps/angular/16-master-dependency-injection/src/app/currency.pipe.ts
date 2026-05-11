@@ -6,7 +6,7 @@ import { CurrencyService } from './currency.service';
   name: 'currency',
 })
 export class CurrencyPipe implements PipeTransform {
-  currencyService = inject(CurrencyService);
+  currencyService = inject(CurrencyService, { host: true });
 
   transform(price: number) {
     return this.currencyService.symbol$.pipe(

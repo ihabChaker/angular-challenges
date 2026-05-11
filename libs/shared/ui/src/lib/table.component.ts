@@ -1,19 +1,19 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, contentChild, input, TemplateRef } from '@angular/core';
-
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'table',
-  imports: [],
+  imports: [NgTemplateOutlet],
   template: `
     <thead>
       <ng-container *ngTemplateOutlet="headerTemplate()"></ng-container>
     </thead>
-    @for (item of items(); track $index) {
-      <tbody>
+    <tbody>
+      @for (item of items(); track $index) {
         <ng-container
           *ngTemplateOutlet="bodyTemplate(); context: { $implicit: item }" />
-      </tbody>
-    }
+      }
+    </tbody>
   `,
 })
 export class TableComponent<T> {
