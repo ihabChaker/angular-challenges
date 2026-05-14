@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+::view-transition-group(post-image) {
+  animation-duration: .8s;
+}
+::view-transition-group(post-author) {
+  animation-duration: 1s;
+}

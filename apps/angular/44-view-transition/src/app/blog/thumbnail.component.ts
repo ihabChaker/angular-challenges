@@ -7,6 +7,7 @@ import { ThumbnailHeaderComponent } from './thumbnail-header.component';
 @Component({
   selector: 'blog-thumbnail',
   imports: [NgOptimizedImage, ThumbnailHeaderComponent, RouterLinkWithHref],
+  styles: ``,
   template: `
     <a [routerLink]="['post', post().id]">
       <img
@@ -14,11 +15,11 @@ import { ThumbnailHeaderComponent } from './thumbnail-header.component';
         alt=""
         width="960"
         height="540"
-        class="rounded-t-3xl"
+        class="post-image rounded-t-3xl"
         [priority]="post().id === '1'" />
       <h2 class="p-3 text-3xl">{{ post().title }}</h2>
       <p class="p-3">{{ post().description }}</p>
-      <thumbnail-header [date]="post().date" />
+      <thumbnail-header [date]="post().date" class="post-author" />
     </a>
   `,
   host: {
@@ -28,4 +29,6 @@ import { ThumbnailHeaderComponent } from './thumbnail-header.component';
 })
 export class ThumbnailComponent {
   post = input.required<Post>();
+  activePostId = input.required<string>();
+  ngOnChanges() {}
 }
