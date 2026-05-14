@@ -1,38 +1,21 @@
-import { httpResource } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ExpandableCard } from './expandable-card';
-
-interface Post {
-  id: number;
-  title: string;
-  body: string;
-  userId: number;
-}
+import { DataList } from './post-list.component';
 
 @Component({
   selector: 'app-page-2',
   template: `
     page2
-    <app-expandable-card>
+    <app-expandable-card (expanded)="expanded.set($event)">
       <div title>Load Post</div>
-      <div>
-        @if (postResource.isLoading()) {
-          Loading...
-        } @else if (postResource.status() === 'error') {
-          Error...
-        } @else {
-          @for (post of postResource.value(); track post.id) {
-            <div>{{ post.title }}</div>
-          }
-        }
-      </div>
+      @defer (when expanded()) {
+        <data-list></data-list>
+      }
     </app-expandable-card>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ExpandableCard],
+  imports: [ExpandableCard, DataList],
 })
 export class Page2 {
-  public postResource = httpResource<Post[]>(
-    () => 'https://jsonplaceholder.typicode.com/posts',
-  );
+  expanded = signal<boolean>(false);
 }
