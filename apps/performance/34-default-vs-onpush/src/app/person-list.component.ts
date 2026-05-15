@@ -7,6 +7,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { ListItem } from './list-item.component';
 import { PersonNameInput } from './person-name-input.component';
 
 @Component({
@@ -21,6 +22,7 @@ import { PersonNameInput } from './person-name-input.component';
     CDFlashingDirective,
     TitleCasePipe,
     PersonNameInput,
+    ListItem,
   ],
   template: `
     <h1 class="text-center font-semibold" title="Title">
@@ -34,13 +36,7 @@ import { PersonNameInput } from './person-name-input.component';
         <div class="empty-list-label">Empty list</div>
       }
       @for (name of names(); track name) {
-        <mat-list-item cd-flash class="text-orange-500">
-          <div class="flex justify-between">
-            <h3 title="Name">
-              {{ name }}
-            </h3>
-          </div>
-        </mat-list-item>
+        <list-item cd-flash [name]="name" />
       }
       @if (names().length !== 0) {
         <mat-divider></mat-divider>
