@@ -9,11 +9,11 @@ export class HeavyCalculationService {
     () => (this.loadingLength() * 100) / this.finalLength,
   );
 
-  startLoading() {
-    this.randomHeavyCalculationFunction();
+  startLoading(onProgress: (n: number) => void) {
+    this.randomHeavyCalculationFunction(onProgress);
   }
 
-  private randomHeavyCalculationFunction() {
+  private randomHeavyCalculationFunction(onProgress: (n: number) => void) {
     for (let num = 2; num <= 10000000; num++) {
       let randomFlag = true;
       for (let i = 2; i <= Math.sqrt(num); i++) {
@@ -24,6 +24,7 @@ export class HeavyCalculationService {
       }
       if (randomFlag) {
         this.loadingLength.update((l) => l + 1);
+        onProgress(Math.floor(this.loadingPercentage()));
       }
     }
   }

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnDestroy, signal } from '@angular/core';
 import { HeavyCalculationService } from './heavy-calculation.service';
 import { UnknownPersonComponent } from './unknown-person/unknown-person.component';
 
@@ -19,12 +19,25 @@ import { UnknownPersonComponent } from './unknown-person/unknown-person.componen
     class: `flex flex-col h-screen w-screen bg-[#1f75c0]`,
   },
 })
-export class AppComponent {
-  private heavyCalculationService = inject(HeavyCalculationService);
+export class AppComponent implements OnDestroy {
+  readonly loadingPercentage = signal<number>(0);
 
-  readonly loadingPercentage = this.heavyCalculationService.loadingPercentage;
+  private worker: Worker;
 
+  constructor() {
+    // if (typeof Worker === 'undefined') {
+    //   alert('Web workers are not supported in your browser');
+    //   return;
+    // }
+    this.worker = new Worker(new URL('./app.worker', import.meta.url));
+  }
+  ngOnDestroy(): void {
+    this.worker.terminate();
+  }
   discover() {
-    this.heavyCalculationService.startLoading();
+    this.worker.onmessage = ({ data }) => {
+      this.loadingPercentage.set(data.percentage);
+    };
+    this.worker.postMessage('Start');
   }
 }
