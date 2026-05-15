@@ -1,17 +1,9 @@
-import {
-  CdkFixedSizeVirtualScroll,
-  CdkVirtualForOf,
-  CdkVirtualScrollViewport,
-} from '@angular/cdk/scrolling';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { Person } from './person.model';
 @Component({
   selector: 'app-person-list',
-  imports: [
-    CdkVirtualScrollViewport,
-    CdkFixedSizeVirtualScroll,
-    CdkVirtualForOf,
-  ],
+  imports: [ScrollingModule],
   template: `
     <cdk-virtual-scroll-viewport
       [itemSize]="36"
