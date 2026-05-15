@@ -1,4 +1,13 @@
-import { Component, HostListener, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  NgZone,
+  OnInit,
+  signal,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -29,15 +38,20 @@ import { Component, HostListener, signal } from '@angular/core';
     `,
   ],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'scroll-cd';
 
   public displayButton = signal(false);
-
-  @HostListener('window:scroll')
-  onScroll() {
-    const pos = window.scrollY;
-    this.displayButton.set(pos > 50);
+  ngZone = inject(NgZone);
+  destroyRef = inject(DestroyRef);
+  ngOnInit(): void {
+    this.ngZone.runOutsideAngular(() => {
+      fromEvent(window, 'scroll')
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => {
+          this.displayButton.set(window.scrollY > 50);
+        });
+    });
   }
 
   goToTop() {
