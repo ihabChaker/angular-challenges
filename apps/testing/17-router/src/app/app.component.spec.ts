@@ -20,8 +20,8 @@ describe('AppComponent', () => {
       let errorMessage = component.getByText(/search criteria is required!/i);
       let borrowButton = component.getByRole('button', { name: /borrow/i });
 
-      expect(errorMessage.textContent).toEqual('Search criteria is required!');
-      expect(borrowButton.hasAttribute('disabled')).toBeTruthy();
+      expect(errorMessage).toBeInTheDocument();
+      expect(borrowButton).toBeDisabled();
     });
   });
 

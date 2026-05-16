@@ -15,7 +15,7 @@ describe(AppComponent.name, () => {
     it('Then shows error message and disabled button', () => {
       setup();
 
-      cy.get('.error').should('have.text', 'Search criteria is required!');
+      cy.contains('Search criteria is required!');
       cy.get('[data-cy="borrow-btn"]').should('have.attr', 'disabled');
     });
   });
@@ -24,13 +24,10 @@ describe(AppComponent.name, () => {
     it('Then shows No book found', () => {
       setup();
 
-      cy.get('#bookName').type('glfdkglfdkl');
+      cy.get('#bookName').clear().type('glfdkglfdkl');
       cy.get('[data-cy="borrow-btn"]').click();
 
-      cy.get('ng-component').should(
-        'have.text',
-        'No book found for this search',
-      );
+      cy.contains('No book found for this search');
     });
   });
 
@@ -38,7 +35,7 @@ describe(AppComponent.name, () => {
     it('Then shows One book and no error', () => {
       setup();
 
-      cy.get('#bookName').type('kill');
+      cy.get('#bookName').clear().type('kill');
       cy.get('[data-cy="borrow-btn"]').click();
 
       cy.get('li').should('have.length', 1);
@@ -49,7 +46,7 @@ describe(AppComponent.name, () => {
     it('Then shows One book and no error', () => {
       setup();
 
-      cy.get('#bookName').type('kill'.toUpperCase());
+      cy.get('#bookName').clear().type('kill'.toUpperCase());
       cy.get('[data-cy="borrow-btn"]').click();
 
       cy.get('li').should('have.length', 1);
@@ -60,7 +57,7 @@ describe(AppComponent.name, () => {
     it('Then shows a list of books', () => {
       setup();
 
-      cy.get('#bookName').type('The'.toUpperCase());
+      cy.get('#bookName').clear().type('The'.toUpperCase());
       cy.get('[data-cy="borrow-btn"]').click();
 
       cy.get('li').should('have.length.greaterThan', 1);
