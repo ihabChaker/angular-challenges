@@ -5,8 +5,12 @@
     "types": [],
     "moduleResolution": "bundler"
   },
-  "files": ["src/main.ts"],
-  "include": ["src/**/*.d.ts"],
+  "files": [
+    "src/main.ts"
+  ],
+  "include": [
+    "src/**/*.ts"
+  ],
   "exclude": [
     "jest.config.ts",
     "src/**/*.test.ts",
