@@ -11,10 +11,17 @@ describe(AppComponent.name, () => {
     cy.get('a').click();
   }
 
+  function searchKeyword(keyword: string) {
+    cy.screenshot('gog');
+    cy.get('#bookName').clear().type(keyword);
+    cy.get('[data-cy="borrow-btn"]').click();
+  }
+  beforeEach(() => {
+    setup();
+  });
+
   describe('Given no search criteria', () => {
     it('Then shows error message and disabled button', () => {
-      setup();
-
       cy.contains('Search criteria is required!');
       cy.get('[data-cy="borrow-btn"]').should('have.attr', 'disabled');
     });
@@ -22,10 +29,7 @@ describe(AppComponent.name, () => {
 
   describe('Given a search criteria with no book match', () => {
     it('Then shows No book found', () => {
-      setup();
-
-      cy.get('#bookName').clear().type('glfdkglfdkl');
-      cy.get('[data-cy="borrow-btn"]').click();
+      searchKeyword('sfsdfsd');
 
       cy.contains('No book found for this search');
     });
@@ -33,10 +37,7 @@ describe(AppComponent.name, () => {
 
   describe('Given a search criteria with one book match', () => {
     it('Then shows One book and no error', () => {
-      setup();
-
-      cy.get('#bookName').clear().type('kill');
-      cy.get('[data-cy="borrow-btn"]').click();
+      searchKeyword('kill');
 
       cy.get('li').should('have.length', 1);
     });
@@ -44,10 +45,7 @@ describe(AppComponent.name, () => {
 
   describe('Given a search criteria in Uppercase with one book match', () => {
     it('Then shows One book and no error', () => {
-      setup();
-
-      cy.get('#bookName').clear().type('kill'.toUpperCase());
-      cy.get('[data-cy="borrow-btn"]').click();
+      searchKeyword('kill'.toUpperCase());
 
       cy.get('li').should('have.length', 1);
     });
@@ -55,10 +53,7 @@ describe(AppComponent.name, () => {
 
   describe('Given a search criteria with multple books matches', () => {
     it('Then shows a list of books', () => {
-      setup();
-
-      cy.get('#bookName').clear().type('The'.toUpperCase());
-      cy.get('[data-cy="borrow-btn"]').click();
+      searchKeyword('The');
 
       cy.get('li').should('have.length.greaterThan', 1);
     });
