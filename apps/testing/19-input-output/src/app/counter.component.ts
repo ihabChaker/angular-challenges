@@ -1,9 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   input,
   linkedSignal,
-  output,
+  Output,
 } from '@angular/core';
 
 @Component({
@@ -20,7 +21,7 @@ export class CounterComponent {
   initialValue = input.required<number>();
   public counter = linkedSignal(() => this.initialValue());
 
-  send = output<number>();
+  @Output() send = new EventEmitter<number>();
 
   public increment = () => {
     this.counter.set(this.counter() + 1);
