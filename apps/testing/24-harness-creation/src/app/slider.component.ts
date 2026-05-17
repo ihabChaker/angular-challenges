@@ -23,7 +23,7 @@ import { MatSliderModule } from '@angular/material/slider';
             <input
               matSliderThumb
               [value]="value()"
-              (valueChange)="value.set($event)" />
+              (valueChange)="valueChange.emit($event)" />
           </mat-slider>
           {{ maxValue() }}
           <button id="plusButton" mat-mini-fab (click)="forward()">
@@ -59,17 +59,20 @@ export class SliderComponent implements OnInit {
 
   ngOnInit(): void {
     this.value.set(this.minValue());
+    this.valueChange.emit(this.value());
   }
 
   back() {
     if (this.value() - this.step() >= this.minValue()) {
       this.value.update((v) => v - this.step());
+      this.valueChange.emit(this.value());
     }
   }
 
   forward() {
     if (this.value() + this.step() <= this.maxValue()) {
       this.value.update((v) => v + this.step());
+      this.valueChange.emit(this.value());
     }
   }
 }
