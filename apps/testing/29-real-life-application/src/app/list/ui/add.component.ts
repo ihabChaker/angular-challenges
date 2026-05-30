@@ -38,7 +38,7 @@ import { MatInputModule } from '@angular/material/input';
         mat-flat-button
         color="primary"
         type="submit"
-        [disabled]="loading">
+        [disabled]="loading()">
         Add new Ticket
       </button>
     </form>
