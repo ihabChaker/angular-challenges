@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import { randomError } from '@angular-challenges/shared/utils';
 import { computed, Injectable, signal } from '@angular/core';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 export type TopicType = 'food' | 'book' | 'sport';
 
@@ -42,7 +42,7 @@ export class LocalDBService {
     this.state.set({ infos: this.state().infos.filter((i) => i.id !== id) });
   };
 
-  deleteOneTopic = (id: number) =>
+  deleteOneTopic = (id: number): Observable<boolean> =>
     randomError({
       success: () => {
         this.deleteOne(id);
