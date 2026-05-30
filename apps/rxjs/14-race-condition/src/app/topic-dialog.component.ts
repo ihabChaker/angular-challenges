@@ -1,13 +1,16 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { AsyncPipe } from '@angular/common';
+
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { of } from 'rxjs';
 
 @Component({
   template: `
     <h1 mat-dialog-title>Show all Topics</h1>
     <div mat-dialog-content>
       <ul>
-        @for (topic of data.topics; track $index) {
+        @for (topic of (data.topics$ | async); track $index) {
           <li>
             {{ topic }}
           </li>
@@ -18,7 +21,7 @@ import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
       <button mat-button mat-dialog-close>Close</button>
     </div>
   `,
-  imports: [MatDialogModule, MatButtonModule],
+  imports: [MatDialogModule, MatButtonModule, AsyncPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TopicModalComponent {

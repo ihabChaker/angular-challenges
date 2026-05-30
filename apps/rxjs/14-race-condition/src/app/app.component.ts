@@ -5,7 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { take } from 'rxjs';
+import { Observable, of, take } from 'rxjs';
 import { TopicModalComponent } from './topic-dialog.component';
 import { TopicService, TopicType } from './topic.service';
 
@@ -20,19 +20,16 @@ export class AppComponent implements OnInit {
   title = 'rxjs-race-condition';
   dialog = inject(MatDialog);
   topicService = inject(TopicService);
-  topics: TopicType[] = [];
+  topics$: Observable<TopicType[]> = of([]);
 
   ngOnInit(): void {
-    this.topicService
-      .fakeGetHttpTopic()
-      .pipe(take(1))
-      .subscribe((topics) => (this.topics = topics));
+    this.topics$ = this.topicService.fakeGetHttpTopic().pipe(take(1));
   }
 
   openTopicModal() {
     this.dialog.open(TopicModalComponent, {
       data: {
-        topics: this.topics,
+        topics$: this.topics$,
       },
     });
   }
