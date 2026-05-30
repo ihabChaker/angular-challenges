@@ -1,7 +1,6 @@
 import { Location } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import { provideComponentStore } from '@ngrx/component-store';
 import { render, screen, within } from '@testing-library/angular';
 import {
   createMockWithValues,
@@ -57,11 +56,10 @@ describe('ListComponent', () => {
           provide: BackendService,
           useValue: fakeServiceObj,
         },
-        provideComponentStore(TicketStore),
+        // provideComponentStore(TicketStore),
         provideRouter(APP_ROUTES),
       ],
     });
-    await fixture.whenStable();
 
     return {
       fakeServiceObj,
