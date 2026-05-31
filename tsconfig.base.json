@@ -78,6 +78,9 @@
       "@angular-challenges/static-dynamic-import/users": [
         "libs/static-dynamic-import/users/src/index.ts"
       ],
+      "@angular-challenges/mylib/users": [
+        "libs/mylib/src/index.ts"
+      ],
       "@angular-challenges/testing-table/backend": [
         "libs/testing-table/backend/src/index.ts"
       ],
@@ -86,6 +89,9 @@
       ],
       "angular-master-dependency-injection": [
         "apps/angular/16-master-dependency-injection/src/index.ts"
+      ],
+      "mylib": [
+        "libs/mylib/src/index.ts"
       ]
     }
   },
@@ -97,5 +103,5 @@
     "src/**/*.d.ts",
     "src/**/*.ts",
     "src/**/*.html"
-  ],
+  ]
 }

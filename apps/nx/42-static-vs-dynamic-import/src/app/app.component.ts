@@ -1,8 +1,4 @@
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import {
-  type User,
-  UserComponent,
-} from '@angular-challenges/static-dynamic-import/users';
+import { User, UserComponent } from '@angular-challenges/mylib/users';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
