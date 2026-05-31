@@ -25,13 +25,31 @@ export const rule = ESLintUtils.RuleCreator(() => __filename)({
     type: 'problem',
     docs: {
       description: ``,
-      recommended: 'recommended',
     },
     schema: [],
-    messages: {},
+    messages: {
+      enumNotAllowed: 'Enum declarations are not allowed',
+      useStringUnions: 'Please use string unions instead',
+    },
+    hasSuggestions: true,
   },
   defaultOptions: [],
   create(context) {
-    return {};
+    return {
+      TSEnumDeclaration(node) {
+        context.report({
+          messageId: 'enumNotAllowed',
+          node: node.id,
+          suggest: [
+            {
+              messageId: 'useStringUnions',
+              fix: (fixer) => {
+                return fixer.remove(node);
+              },
+            },
+          ],
+        });
+      },
+    };
   },
 });

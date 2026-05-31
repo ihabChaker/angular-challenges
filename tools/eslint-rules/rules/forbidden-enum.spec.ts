@@ -1,11 +1,31 @@
-import { TSESLint } from '@typescript-eslint/utils';
+/**
+ * @jest-environment node
+ */
+
+import { RuleTester } from '@typescript-eslint/rule-tester';
 import { rule, RULE_NAME } from './forbidden-enum';
 
-const ruleTester = new TSESLint.RuleTester({
-  parser: require.resolve('@typescript-eslint/parser'),
-});
+const ruleTester = new RuleTester();
 
 ruleTester.run(RULE_NAME, rule, {
   valid: [`const example = true;`],
-  invalid: [],
+  invalid: [
+    {
+      code: `enum Direction {
+  LEFT = 'left',
+  RIGHT = 'right',
+}`,
+      errors: [
+        {
+          messageId: 'enumNotAllowed',
+          suggestions: [
+            {
+              messageId: 'useStringUnions',
+              output: '',
+            },
+          ],
+        },
+      ],
+    },
+  ],
 });
