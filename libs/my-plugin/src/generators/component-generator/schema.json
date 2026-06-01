@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "$id": "ComponentGenerator",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of your component/store/service",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use?"
+    },
+    "createService": {
+      "type": "string",
+      "description": "Flag to tell if a http service should be created",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      },
+      "x-prompt": {
+        "message": "Would you like to create the related service?",
+        "type": "list",
+        "items": [
+          { "value": "yes", "label": "yes" },
+          { "value": "no", "label": "no" }
+        ]
+      }
+    },
+    "inlineTemplate": {
+      "type": "string",
+      "description": "Flag to decide if template should be inline or in a separate file",
+      "$default": {
+        "$source": "argv",
+        "index": 2
+      },
+      "x-prompt": {
+        "message": "Do you want your template inline or not?",
+        "type": "list",
+        "items": [
+          { "value": "yes", "label": "yes" },
+          { "value": "no", "label": "no" }
+        ]
+      }
+    }
+  },
+  "required": []
+}

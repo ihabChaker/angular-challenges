@@ -1,0 +1,58 @@
+import { Injectable, inject } from '@angular/core';
+import { ComponentStore, OnStateInit, OnStoreInit } from '@ngrx/component-store';
+import { tapResponse } from '@ngrx/operators';
+import { mergeMap, pipe, tap } from 'rxjs';
+import { <%= capitalName %> } from './<%= lowerName %>.model';
+import { <%= capitalName %>Service } from './<%= lowerName %>.service';
+
+export interface <%= capitalName %>State {
+  <%= lowerName %>s: <%= capitalName %>[];
+  loading: boolean;
+  error?: string;
+}
+
+const initialState: <%= capitalName %>State = {
+  <%= lowerName %>s: [],
+  loading: false,
+  error: undefined,
+};
+
+@Injectable()
+export class <%= capitalName %>Store extends ComponentStore<<%= capitalName %>State> implements OnStateInit, OnStoreInit {
+  private <%= lowerName %>Service = inject(<%= capitalName %>Service);
+
+  private readonly <%= lowerName %>s$ = this.select((state) => state.<%= lowerName %>s);
+  private readonly loading$ = this.select((state) => state.loading);
+  private readonly error$ = this.select((state) => state.error);
+
+  readonly vm$ = this.select(
+    {
+      <%= lowerName %>s: this.<%= lowerName %>s$,
+      loading: this.loading$,
+      error: this.error$,
+    },
+    { debounce: true },
+  );
+
+  ngrxOnStateInit() {
+    this.setState(initialState);
+  }
+
+  ngrxOnStoreInit() {
+    this.load<%= capitalName %>s();
+  }
+
+  readonly load<%= capitalName %>s = this.effect<void>(
+    pipe(
+      tap(() => this.patchState({ loading: true })),
+      mergeMap(() =>
+        this.<%= lowerName %>Service.load<%= capitalName %>s().pipe(
+          tapResponse(
+            (<%= lowerName %>s) => this.patchState({ <%= lowerName %>s, loading: false }),
+            (err: string) => this.patchState({ error: err, loading: false }),
+          ),
+        ),
+      ),
+    ),
+  );
+}
