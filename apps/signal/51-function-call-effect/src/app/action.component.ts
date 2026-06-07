@@ -4,6 +4,7 @@ import {
   effect,
   inject,
   signal,
+  untracked,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UserService } from './user.service';
@@ -36,9 +37,20 @@ export class ActionsComponent {
 
   protected actions = ['Create', 'Read', 'Update', 'Delete'];
 
+  /**
+   * This effect triggers when an action is selected but also when a user changes which is not desired in this case, why, because the log function calls the user name signal in it's body, therefor it becomes another signal to be tracked by the effect, and then every changes into his value trigger would trigger the effect alongside the action signal
+   */
+  // constructor() {
+  //   effect(() => {
+  //     this.userService.log(this.action() ?? 'No action selected');
+  //   });
+  // }
   constructor() {
     effect(() => {
-      this.userService.log(this.action() ?? 'No action selected');
+      const action = this.action();
+      untracked(() => {
+        this.userService.log(action ?? 'No action selected');
+      });
     });
   }
 }
